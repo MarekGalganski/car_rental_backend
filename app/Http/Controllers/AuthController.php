@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
@@ -42,5 +43,12 @@ class AuthController extends Controller
         }
 
         return response()->json(['success' => true, 'message' => 'Registration succeeded']);
+    }
+
+    public function logout()
+    {
+        $token = Auth::user()->token();
+        $token->revoke();
+        return response()->json(['success' => true, 'message' => 'You have been successfully logged out!']);
     }
 }
