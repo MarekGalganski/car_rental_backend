@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Client;
+use App\Actions\Auth\LoginAction;
+use App\Actions\Auth\RegisterAction;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserLoginRequest;
@@ -12,24 +14,11 @@ use App\Http\Requests\UserRegisterRequest;
 
 class AuthController extends Controller
 {
-    public function login(UserLoginRequest $request)
+    public function login(UserLoginRequest $request, LoginAction $loginAction)
     {
-        $passwordGrantClient = Client::where('password_client', 1)->first();
-
-        $data = [
-            'grant_type' => 'password',
-            'client_id' => $passwordGrantClient->id,
-            'client_secret' => $passwordGrantClient->secret,
-            'username' => $request->email,
-            'password' => $request->password,
-            'scope' => '*',
-        ];
-
-        $tokenRequest = Request::create('/oauth/token', 'post', $data);
-
-        $tokenResponse = app()->handle($tokenRequest);
-        $contentString = $tokenResponse->content();
-        $tokenContent = json_decode($contentString, true);
+        $passwordRequest = $loginAction->run($request->all());
+        $tokenContent = $passwordRequest['content'];
+        $tokenResponse = $passwordRequest['response'];
 
         if (!empty($tokenContent['access_token'])) {
             return $tokenResponse;
@@ -37,16 +26,12 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Unauthenticated'
-        ]);
+        ], 404);
     }
 
-    public function register(UserRegisterRequest $request)
+    public function register(UserRegisterRequest $request, RegisterAction $registerAction)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password)
-        ]);
+        $user = $registerAction->run($request->all());
 
         if (!$user) {
             return response()->json(['success' => false, 'message' => 'Registration failed'], 409);
