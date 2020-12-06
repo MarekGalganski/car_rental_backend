@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Models\Permission;
+
 trait HasPermissions
 {
     public function hasPermissionTo(...$permissions)
@@ -12,18 +14,26 @@ trait HasPermissions
             })->count();
     }
 
+    private function getPermissionIdsBySlug($permissions)
+    {
+        return Permission::whereIn('slug', $permissions)->get()->pluck('id')->toArray();
+    }
+
     public function givePermissionTo(...$permissions)
     {
-        $this->permissions()->attach($permissions);
+        $permissionsIds = $this->getPermissionIdsBySlug($permissions);
+        $this->permissions()->attach($permissionsIds);
     }
 
     public function setPermissions(...$permissions)
     {
-        $this->permissions()->sync($permissions);
+        $permissionsIds = $this->getPermissionIdsBySlug($permissions);
+        $this->permissions()->sync($permissionsIds);
     }
 
     public function detachPermissions(...$permissions)
     {
-        $this->permissions()->detach($permissions);
+        $permissionsIds = $this->getPermissionIdsBySlug($permissions);
+        $this->permissions()->detach($permissionsIds);
     }
 }
