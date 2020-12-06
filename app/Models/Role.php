@@ -2,10 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    use HasFactory;
+    use HasPermissions;
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'roles_permissions');
+    }
+
+    public function hasPermissionTo(...$permissions)
+    {
+        return $this->permissions()->whereIn('slug', $permissions)->count();
+    }
 }
