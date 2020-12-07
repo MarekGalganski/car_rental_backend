@@ -18,7 +18,9 @@ use App\Http\Controllers\UsersController;
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logut');
-    Route::get('/user-details', [UsersController::class, 'getUserDetails'])->name('api.userDetails');
+    Route::get('/user-details', [UsersController::class, 'getUserDetails'])->name('api.user-details');
+    Route::put('/change-password', [UsersController::class, 'changePassword'])->name('api.change-password');
+    Route::put('/change-details', [UsersController::class, 'changeDetails'])->name('api.change-details');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.login');
