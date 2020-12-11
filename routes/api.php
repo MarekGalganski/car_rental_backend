@@ -19,7 +19,7 @@ use App\Http\Controllers\ConstantsController;
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('api.logut');
-    Route::get('/user-details', [UsersController::class, 'getUserDetails'])->name('api.user-details');
+    Route::get('/user-details', [UsersController::class, 'getUserDetails'])->name('api.user-details')->middleware('can:view-developer-dashboard');
     Route::put('/change-password', [UsersController::class, 'changePassword'])->name('api.change-password');
     Route::put('/change-details', [UsersController::class, 'changeDetails'])->name('api.change-details');
 });
