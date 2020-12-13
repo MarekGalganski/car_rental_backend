@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -18,12 +19,16 @@ use App\Http\Controllers\ConstantsController;
 */
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logut');
-    Route::get('/user-details', [UsersController::class, 'getUserDetails'])->name('api.user-details')->middleware('can:view-developer-dashboard');
-    Route::put('/change-password', [UsersController::class, 'changePassword'])->name('api.change-password');
-    Route::put('/change-details', [UsersController::class, 'changeDetails'])->name('api.change-details');
+    Route::post('logout', [AuthController::class, 'logout'])->name('api.logut');
+    Route::get('user-details', [UsersController::class, 'getUserDetails'])->name('api.user-details')->middleware('can:view-developer-dashboard');
+    Route::put('change-password', [UsersController::class, 'changePassword'])->name('api.change-password');
+    Route::put('change-details', [UsersController::class, 'changeDetails'])->name('api.change-details');
+    Route::get('cars', function() {
+        return Car::all();
+    });
+    // Roure::get('cars/{id}')
 });
 
-Route::post('/login', [AuthController::class, 'login'])->name('api.login');
-Route::post('/register', [AuthController::class, 'register'])->name('api.register');
-Route::get('/constants', [ConstantsController::class, 'index'])->name('api.constans');
+Route::post('login', [AuthController::class, 'login'])->name('api.login');
+Route::post('register', [AuthController::class, 'register'])->name('api.register');
+Route::get('constants', [ConstantsController::class, 'index'])->name('api.constans');
