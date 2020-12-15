@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\cars;
 
 use App\Models\Car;
-use Illuminate\Http\Request;
 use App\Http\Resources\CarResource;
 use App\Http\Controllers\Controller;
 

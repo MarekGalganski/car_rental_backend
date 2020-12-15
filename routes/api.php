@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\cars\CarController;
 use App\Http\Controllers\ConstantsController;
+use App\Http\Controllers\Cars\CarAvailabilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::post('login', [AuthController::class, 'login'])->name('api.login');
 Route::post('register', [AuthController::class, 'register'])->name('api.register');
 Route::get('constants', [ConstantsController::class, 'index'])->name('api.constans');
+
+Route::get('cars/{car}/availability', CarAvailabilityController::class)->name('cars.availability.show');
+
