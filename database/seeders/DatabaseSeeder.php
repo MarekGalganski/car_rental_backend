@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(CarsTableSeeder::class);
         $this->call(CarBookinsTableSeeder::class);
+        $this->call(ReviewsTableSeeder::class);
     }
 }

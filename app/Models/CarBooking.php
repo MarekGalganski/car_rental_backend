@@ -17,6 +17,11 @@ class CarBooking extends Model
         return $this->belongsTo(Car::class);
     }
 
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
+
     public function scopeBetweenDates(Builder $query, $from, $to)
     {
         return $query->where('to', '>=', $from)

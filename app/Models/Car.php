@@ -14,6 +14,11 @@ class Car extends Model
         return $this->hasMany(CarBooking::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     public function availableFor($from, $to): bool
     {
         return 0 === $this->carBookings()->betweenDates($from, $to)->count();
