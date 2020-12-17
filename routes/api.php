@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\cars\CarController;
 use App\Http\Controllers\ConstantsController;
+use App\Http\Controllers\Cars\CarReviewController;
 use App\Http\Controllers\Cars\CarAvailabilityController;
 
 /*
@@ -35,4 +36,5 @@ Route::post('register', [AuthController::class, 'register'])->name('api.register
 Route::get('constants', [ConstantsController::class, 'index'])->name('api.constans');
 
 Route::get('cars/{car}/availability', CarAvailabilityController::class)->name('cars.availability.show');
+Route::get('cars/{car}/reviews', CarReviewController::class)->name('cars.reviews.index');
 
