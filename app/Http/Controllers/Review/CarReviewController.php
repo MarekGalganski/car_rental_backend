@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Cars;
+namespace App\Http\Controllers\Review;
 
 use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CarReviewIndexResource;
+use App\Http\Resources\Review\CarReviewIndexResource;
 
 class CarReviewController extends Controller
 {

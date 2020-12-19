@@ -1,13 +1,14 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\cars\CarController;
 use App\Http\Controllers\ConstantsController;
-use App\Http\Controllers\Cars\CarReviewController;
+use App\Http\Controllers\Review\ReviewController;
+use App\Http\Controllers\Review\CarReviewController;
 use App\Http\Controllers\Cars\CarAvailabilityController;
+use App\Http\Controllers\Review\CarBookingByReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +30,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('change-details', [UsersController::class, 'changeDetails'])->name('api.change-details');
 
     Route::apiResource('cars', CarController::class)->only('index', 'show');
+    Route::get('cars/{car}/availability', CarAvailabilityController::class)->name('cars.availability.show');
+    Route::get('cars/{car}/reviews', CarReviewController::class)->name('cars.reviews.index');
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('api.login');
 Route::post('register', [AuthController::class, 'register'])->name('api.register');
 Route::get('constants', [ConstantsController::class, 'index'])->name('api.constans');
 
-Route::get('cars/{car}/availability', CarAvailabilityController::class)->name('cars.availability.show');
-Route::get('cars/{car}/reviews', CarReviewController::class)->name('cars.reviews.index');
-
+Route::apiResource('reviews', ReviewController::class)->only('show');
+Route::get('car-booking-by-review/{reviewKey}', CarBookingByReviewController::class)->name('carBooking.by-review.show');

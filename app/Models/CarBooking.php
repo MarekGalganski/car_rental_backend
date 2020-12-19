@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,5 +27,19 @@ class CarBooking extends Model
     {
         return $query->where('to', '>=', $from)
             ->where('from', '<=', $to);
+    }
+
+    public static function findByReviewKey(string $reviewKey): ?CarBooking
+    {
+        return static::where('review_key', $reviewKey)->with('car')->get()->first();
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($carBooking) {
+            $carBooking->review_key = Str::uuid();
+        });
     }
 }
