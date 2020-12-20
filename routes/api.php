@@ -38,5 +38,5 @@ Route::post('login', [AuthController::class, 'login'])->name('api.login');
 Route::post('register', [AuthController::class, 'register'])->name('api.register');
 Route::get('constants', [ConstantsController::class, 'index'])->name('api.constans');
 
-Route::apiResource('reviews', ReviewController::class)->only('show');
+Route::apiResource('reviews', ReviewController::class)->only('show', 'store');
 Route::get('car-booking-by-review/{reviewKey}', CarBookingByReviewController::class)->name('carBooking.by-review.show');

@@ -16,6 +16,12 @@ class CarBookingByReviewController extends Controller
      */
     public function __invoke($reviewKey)
     {
-        return new CarBookingByReviewShowResource(CarBooking::findByReviewKey($reviewKey)) ?? abort(404);
+        $carBooking = CarBooking::findByReviewKey($reviewKey);
+
+        if (!$carBooking) {
+            abort(404);
+        }
+
+        return new CarBookingByReviewShowResource(CarBooking::findByReviewKey($reviewKey));
     }
 }
