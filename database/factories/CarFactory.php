@@ -24,7 +24,8 @@ class CarFactory extends Factory
         return [
             'brand' => $this->faker->name,
             'model' => $this->faker->randomDigit,
-            'description' => $this->faker->text()
+            'description' => $this->faker->text(),
+            'price' => random_int(100, 2000),
         ];
     }
 }

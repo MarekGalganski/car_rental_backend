@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\cars\CarController;
 use App\Http\Controllers\ConstantsController;
+use App\Http\Controllers\Cars\CarPriceController;
 use App\Http\Controllers\Review\ReviewController;
 use App\Http\Controllers\Review\CarReviewController;
 use App\Http\Controllers\Cars\CarAvailabilityController;
@@ -32,11 +33,15 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('cars', CarController::class)->only('index', 'show');
     Route::get('cars/{car}/availability', CarAvailabilityController::class)->name('cars.availability.show');
     Route::get('cars/{car}/reviews', CarReviewController::class)->name('cars.reviews.index');
+
+    Route::apiResource('reviews', ReviewController::class)->only('show', 'store');
+    Route::get('car-booking-by-review/{reviewKey}', CarBookingByReviewController::class)->name('carBooking.by-review.show');
+
 });
 
 Route::post('login', [AuthController::class, 'login'])->name('api.login');
 Route::post('register', [AuthController::class, 'register'])->name('api.register');
 Route::get('constants', [ConstantsController::class, 'index'])->name('api.constans');
 
-Route::apiResource('reviews', ReviewController::class)->only('show', 'store');
-Route::get('car-booking-by-review/{reviewKey}', CarBookingByReviewController::class)->name('carBooking.by-review.show');
+
+Route::get('cars/{car}/price', CarPriceController::class)->name('car.price.show');
