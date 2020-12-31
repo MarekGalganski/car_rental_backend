@@ -25,7 +25,8 @@ class CarBookinsTableSeeder extends Seeder
 
                 $carBooking = CarBooking::make([
                     'from' => $from,
-                    'to' => $to
+                    'to' => $to,
+                    'price' => random_int(222, 2000)
                 ]);
                 $carBookings->push($carBooking);
             }

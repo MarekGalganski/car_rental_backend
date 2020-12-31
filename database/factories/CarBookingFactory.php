@@ -27,7 +27,8 @@ class CarBookingFactory extends Factory
 
         return [
             'from' => $from,
-            'to' => $to
+            'to' => $to,
+            'price' => random_int(222, 2000)
         ];
     }
 }

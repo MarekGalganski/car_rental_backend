@@ -14,7 +14,7 @@ class AddPriceAndAddressToCarBookingsTable extends Migration
     public function up()
     {
         Schema::table('car_bookings', function (Blueprint $table) {
-            $table->unsignedInteger('price');
+            $table->integer('price');
 
             $table->unsignedBigInteger('address_id')->index()->nullable();
             $table->foreign('address_id')->references('id')->on('user_addresses');
@@ -31,7 +31,7 @@ class AddPriceAndAddressToCarBookingsTable extends Migration
         Schema::table('car_bookings', function (Blueprint $table) {
             $table->dropColumn('price');
 
-            $table->dropForeignKey('address_id');
+            $table->dropForeign('address_id');
             $table->dropColumn('address_id');
         });
     }
