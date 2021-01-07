@@ -10,9 +10,10 @@ class CarController extends Controller
 {
     public function index()
     {
-        return CarResource::collection(
-            Car::all()
-        );
+        // return CarResource::collection(
+        //     Car::all()
+        // );
+        return Car::paginate(5);
     }
 
     public function show($id)
