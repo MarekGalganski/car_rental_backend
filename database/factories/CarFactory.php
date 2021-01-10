@@ -22,8 +22,23 @@ class CarFactory extends Factory
     public function definition()
     {
         return [
-            'brand' => $this->faker->name,
-            'model' => $this->faker->randomDigit,
+            'brand' => $this->faker->randomElement([
+                'Audi',
+                'Mercedes',
+                'Suzuki',
+                'Mazda',
+                'Kia',
+                'Nissan',
+                'Opel'
+            ]),
+            'model' => $this->faker->randomElement([
+                'Sedan',
+                'Coupe',
+                'Hatchback',
+                'Minivan',
+                'Suv',
+                'PickupTruck'
+            ]),
             'description' => $this->faker->text(),
             'price' => random_int(100, 2000),
         ];
