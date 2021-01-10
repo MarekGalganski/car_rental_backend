@@ -24,7 +24,7 @@ class CarAvailabilityRequest extends FormRequest
     public function rules()
     {
         return [
-            'from' => 'required|date_format:Y-m-d|after_or_equal:now',
+            'from' => 'required|date_format:Y-m-d|after_or_equal:today',
             'to' => 'required|date_format:Y-m-d|after_or_equal:from'
         ];
     }
