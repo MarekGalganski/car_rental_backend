@@ -19,8 +19,6 @@ class CarReviewController extends Controller
     {
         $car = Car::findOrFail($id);
 
-        return CarReviewIndexResource::collection(
-            $car->reviews()->latest()->get()
-        );
+        return $car->reviews()->latest()->paginate(2);
     }
 }

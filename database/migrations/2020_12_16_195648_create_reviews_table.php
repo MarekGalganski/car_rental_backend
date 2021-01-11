@@ -19,6 +19,7 @@ class CreateReviewsTable extends Migration
 
             $table->unsignedTinyInteger('rating');
             $table->text('content');
+            $table->string('name');
 
             $table->unsignedBigInteger('car_id')->index();
             $table->foreign('car_id')->references('id')->on('cars');
