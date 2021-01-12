@@ -33,7 +33,8 @@ class Car extends Model
         return [
             'totalPrice' => $totalPrice,
             'breakdown' => [
-                $this->price => $days
+                'price' => $this->price,
+                'days' => $days
             ]
         ];
     }
