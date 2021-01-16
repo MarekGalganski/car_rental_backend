@@ -18,6 +18,9 @@ class AddPriceAndAddressToCarBookingsTable extends Migration
 
             $table->unsignedBigInteger('address_id')->index()->nullable();
             $table->foreign('address_id')->references('id')->on('user_addresses');
+
+            $table->unsignedBigInteger('user_id')->index();
+            $table->foreign('user_id')->references('id')->on('cars');
         });
     }
 
@@ -33,6 +36,8 @@ class AddPriceAndAddressToCarBookingsTable extends Migration
 
             $table->dropForeign('address_id');
             $table->dropColumn('address_id');
+            $table->dropForeign('user_id');
+            $table->dropColumn('user_id');
         });
     }
 }

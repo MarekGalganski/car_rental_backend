@@ -39,8 +39,8 @@ class CarFactory extends Factory
                 'Suv',
                 'PickupTruck'
             ]),
-            'description' => $this->faker->text(),
-            'price' => random_int(100, 2000),
+            'description' => $this->faker->sentence($nbWords = 25, $variableNbWords = true),
+            'price' => random_int(100, 400),
         ];
     }
 }

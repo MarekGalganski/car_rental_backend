@@ -25,8 +25,9 @@ class CheckoutRequest extends FormRequest
     public function rules()
     {
         return [
-            'bookings' => 'required|array',
+            'bookings' => 'bail|required|array|min:1',
             'bookings.*.car_id' => 'required|exists:cars,id',
+            'bookings.*.user_id' => 'required|exists:users,id',
             'bookings.*.from' => 'required|date_format:Y-m-d|after:today',
             'bookings.*.to' => 'required|date_format:Y-m-d|after_or_equal:bookings.*.from',
             'bookings.*' => ['required', function($attribute, $value, $fail) {

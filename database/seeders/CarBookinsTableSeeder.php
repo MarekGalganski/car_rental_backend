@@ -19,14 +19,15 @@ class CarBookinsTableSeeder extends Seeder
             $carBooking = CarBooking::factory()->make();
             $carBookings = collect([$carBooking]);
 
-            for ($i = 0; $i < random_int(1, 20); $i++) {
-                $from = (clone $carBooking->to)->addDays(random_int(1, 14));
-                $to = (clone $from)->addDays(random_int(0, 14));
+            for ($i = 0; $i < random_int(1, 5); $i++) {
+                $from = (clone $carBooking->to)->addDays(random_int(1, 7));
+                $to = (clone $from)->addDays(random_int(0, 7));
 
                 $carBooking = CarBooking::make([
                     'from' => $from,
                     'to' => $to,
-                    'price' => random_int(222, 2000)
+                    'price' => random_int(222, 2000),
+                    'user_id' => 1
                 ]);
                 $carBookings->push($carBooking);
             }

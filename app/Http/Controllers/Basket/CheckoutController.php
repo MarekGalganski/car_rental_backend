@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Basket;
 
 use App\Models\Car;
+use App\Models\User;
 use App\Models\CarBooking;
 use App\Models\UserAddress;
 use App\Http\Controllers\Controller;
@@ -24,12 +25,14 @@ class CheckoutController extends Controller
         $carBookings = collect($bookingsData)->map(function($bookingData) use ($addressData) {
 
             $car = Car::findOrFail($bookingData['car_id']);
+            $user = User::findOrFail($bookingData['user_id']);
 
             $carBooking = new CarBooking();
             $carBooking->from = $bookingData['from'];
             $carBooking->to = $bookingData['to'];
             $carBooking->price = $car->priceFor($bookingData['from'], $bookingData['to'])['totalPrice'];
             $carBooking->car()->associate($car);
+            $carBooking->user()->associate($user);
             $carBooking->address()->associate(UserAddress::create($addressData));
 
             $carBooking->save();
