@@ -15,7 +15,8 @@ class CarBookingController extends Controller
     {
         User::findOrFail($id);
         $bookings = CarBooking::with('car')
-            ->where('user_id', $id)->orderBy('created_at', 'desc')
+            ->where('user_id', $id)
+            ->orderBy('created_at', 'desc')
             ->paginate($request->perPage);
 
         return UserBookingsResource::collection($bookings);

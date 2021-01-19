@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\cars\CarController;
+use App\Http\Controllers\Cars\CarController;
 use App\Http\Controllers\ConstantsController;
 use App\Http\Controllers\Cars\CarPriceController;
 use App\Http\Controllers\Review\ReviewController;

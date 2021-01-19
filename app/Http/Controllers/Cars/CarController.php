@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\cars;
+namespace App\Http\Controllers\Cars;
 
 use App\Models\Car;
 use App\Http\Resources\CarResource;
